@@ -13,15 +13,21 @@ _global_script_classes=[ {
 "class": "Unit",
 "language": "GDScript",
 "path": "res://unit/Unit.gd"
+}, {
+"base": "Container",
+"class": "UnitContainer",
+"language": "GDScript",
+"path": "res://unit-container/UnitContainer.gd"
 } ]
 _global_script_class_icons={
-"Unit": "res://unit/assets/unit.png"
+"Unit": "res://unit/assets/unit.png",
+"UnitContainer": "res://unit-container/unit-container.png"
 }
 
 [application]
 
 config/name="boardgame"
-run/main_scene="res://map/Map.tscn"
+run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
 [rendering]

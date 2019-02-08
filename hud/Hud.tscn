@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://hud/Hud.gd" type="Script" id=1]
+[ext_resource path="res://unit-container/unit-container-bg.png" type="Texture" id=2]
+[ext_resource path="res://unit-container/UnitContainer.gd" type="Script" id=3]
+
+
+[node name="Hud" type="CanvasLayer"]
+script = ExtResource( 1 )
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -250.0
+margin_top = -79.0
+margin_right = 250.0
+margin_bottom = -7.0
+texture = ExtResource( 2 )
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="UnitContainer" type="Container" parent="NinePatchRect"]
+margin_left = 6.0
+margin_top = 4.0
+margin_right = 493.0
+margin_bottom = 68.0
+script = ExtResource( 3 )
+

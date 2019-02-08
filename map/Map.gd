@@ -2,6 +2,8 @@
 extends Node2D
 
 signal on_gesture(param)
+signal cancel_dragging(unit)
+signal complete_dragging(unit)
 
 var dragging = false
 
@@ -33,3 +35,28 @@ func _unhandled_input(event):
 				emit_signal("on_gesture", "zoom_out_from", get_global_mouse_position())
 		else:
 			dragging = false
+
+# from UnitContainer
+func _on_dragging(unit : Unit):
+	add_child(unit)
+	unit.scale = Vector2(1, 1)
+	unit.set_dragging()
+	unit.connect("dropped_in", self, "_on_dropped_in")
+	unit.connect("dropped_out", self, "_on_dropped_out")
+
+# from Unit
+func _on_dropped_in(unit : Unit):
+	# remove_child(unit)
+	# drop_zone.add_child(unit)
+	emit_signal("complete_dragging", unit)
+	disconnect_unit(unit)
+
+# from Unit
+func _on_dropped_out(unit : Unit):
+	remove_child(unit)
+	emit_signal("cancel_dragging", unit)
+	disconnect_unit(unit)
+
+func disconnect_unit(unit : Unit):
+	unit.disconnect("dropped_in", self, "_on_dropped_in")
+	unit.disconnect("dropped_out", self, "_on_dropped_out")
