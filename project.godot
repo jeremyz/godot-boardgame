@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="boardgame"
-run/main_scene="res://unit/UnitTest.tscn"
+run/main_scene="res://map/Map.tscn"
 config/icon="res://icon.png"
 
 [rendering]

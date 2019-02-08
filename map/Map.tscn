@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://map/Map.gd" type="Script" id=1]
+[ext_resource path="res://map/map.png" type="Texture" id=2]
+[ext_resource path="res://map/Camera.gd" type="Script" id=3]
+
+[node name="Map" type="Node2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Camera" type="Camera2D" parent="."]
+script = ExtResource( 3 )
+margin = Vector2( 10, 10 )
+
+[node name="Tween" type="Tween" parent="Camera"]
+
