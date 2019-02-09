@@ -33,7 +33,6 @@ func _ready():
 	add_child(container)
 	container.rect_min_size.x = rect_size.x
 	container.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	container.connect("resized", self, "_on_resized")
 
 func prepare_unit(unit : Unit):
 	unit.set_freezed(true)
@@ -47,7 +46,7 @@ func add(unit : Unit, w, h):
 	c.rect_min_size = Vector2(w, h)
 	c.add_child(unit)
 	container.add_child(c)
-	_on_resized()
+	resized()
 
 func _on_cancel_dragging(unit : Unit):
 	if selected_slot != null:
@@ -60,7 +59,7 @@ func _on_complete_dragging(unit : Unit):
 	unit = null
 	if selected_slot != null:
 		container.remove_child(selected_slot)
-		_on_resized()	# has to be triggered manually
+		resized()
 		stop_dragged()
 	release_input()
 
@@ -72,7 +71,7 @@ func release_input():
 	event.button_index = BUTTON_LEFT
 	get_tree().input_event(event)
 
-func _on_resized():
+func resized():
 	var rs = rect_size.x
 	var hbs = container.get_minimum_size().x
 	if hbs > rs:
@@ -81,6 +80,7 @@ func _on_resized():
 	else:
 		pmax = (rs - hbs) / 2
 		pmin = pmax
+	stop_slide()
 
 func _gui_input(event):
 	if event is InputEventScreenTouch or (event is InputEventMouseButton and event.button_index == BUTTON_LEFT):
@@ -132,9 +132,8 @@ func release():
 	stop_slide()
 
 func stop_dragged():
-	var unit = selected_slot.get_child(0)
-	if unit != null:
-		unit.set_selected(false)
+	if selected_slot.get_child_count() > 0:
+		selected_slot.get_child(0).set_selected(false)
 	selected_slot = null
 
 func stop_slide():
