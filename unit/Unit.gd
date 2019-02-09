@@ -38,6 +38,10 @@ func kill():
 
 func set_freezed(f):
 	freezed = f
+	if freezed:
+		collision_mask = 0
+	else:
+		collision_mask = 1
 
 func set_spent(v):
 	$SubOverlays/Spent.visible = v
@@ -46,8 +50,10 @@ func set_selected(v):
 	$Overlays/Selected.visible = v
 
 func set_dragging():
-	freezed = false
 	dragging = true
+	scale = Vector2(1, 1)
+	position = get_global_mouse_position()
+	set_freezed(false)
 	set_selected(true)
 
 func hit():
